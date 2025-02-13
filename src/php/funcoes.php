@@ -158,4 +158,22 @@ function exibir_escolha_categoria($conexao,$tipo){
                 <?php
     }
 }
+function exibir_movimentacao($conexao){
+    $sql = "SELECT m.idMovimentacao,m.tipo, m.qtd_movida, p.nome,m.data FROM movimentacao_estoque m INNER JOIN produtos p ON
+    m.idProduto = p.id";
+    $resultado = $conexao->query($sql);
+    while($linha = $resultado->fetch_array()){
+    $data = new DateTime($linha['data']);
+    ?>
+    <tr>
+    
+      <td><?php echo $linha['idMovimentacao'];?></td>
+      <td><?php echo $linha['tipo'];?></td>
+      <td><?php echo $linha['qtd_movida'];?></td>
+      <td><?php echo $linha['nome'];?></td>
+      <td><?php echo $data->format("d/m/Y");?></td>
+    </tr>
+<?php
+}
+}
 ?>

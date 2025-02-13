@@ -30,6 +30,7 @@ require_once "verificacao_categoria.php";
                 <ul class="menu">
                     <li> <a href="cadastro_produtos.php">Cadastrar Produtos </a></li>
                     <li><a href="escolha_categoria.php">Produtos</a></li>
+                    <li><a href="movimentacoes.php">Movimentações</a></li>
                     <li><a href="#">Cadastrar funcionários</a></li>
                     <li><a href="#">Alterar login</a></li>
                     <li><a href="#">Excluir conta</a></li>
