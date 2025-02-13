@@ -34,7 +34,7 @@ header .avatarUser .btnSair{
 .menu-principal{
     display:flex;
     width:100%;
-    height:500px;
+    height:600px;
 }
 .menu-principal-cadastro{
     height:auto;
@@ -87,7 +87,7 @@ header .avatarUser .btnSair{
     width:80%;
     cursor: pointer;
 }
-.botaoEnviarCategoria{
+.botaoEnviar{
     width:250px;
     padding:0.4em;
     border-radius: 0.2em;
@@ -96,6 +96,7 @@ header .avatarUser .btnSair{
     border:none;
     font-size: 1.2em;
     font-family: 'Barlow';
+    margin-top:10px;
 }
 .main-cadastro-produto{
     display:flex;
@@ -103,11 +104,12 @@ header .avatarUser .btnSair{
 
 }
 .cadastro-produto{
-    width:60%;
+    width:40%;
     padding:1em;
     background-color: white;
     margin-top:10px;
 }
+
 .main-produtos{
     display:flex;
     justify-content: center;
@@ -133,9 +135,17 @@ header .avatarUser .btnSair{
     cursor:pointer;
     color:#E5191A;
 }
+.area-edicao-estoque{
+    height:auto;
+    margin-top:10px;
+}
+
+.area-edicao-estoque .form-control,.area-edicao-estoque .form-select{
+    width:100%;
+}
 .edicao-estoque{
-    border:solid 2px red;
     width:60%;
+    margin-top:50px;
     margin:auto;
     display:flex;
     justify-content: center;
@@ -148,4 +158,21 @@ header .avatarUser .btnSair{
 .card-gerenciado{
     width:50%;
 }
-
+.main-categoria2{
+    width:80%;
+}
+.categoria{
+    width:50%;
+}
+.cadastrar-categoria label{
+    font-size:1.5em;
+}
+.form-edicao-estoque{
+    width:100%;
+    height:auto;
+    padding:0.5em;
+    margin-top:2px;
+}
+.alert{
+    font-size: 3em;
+}

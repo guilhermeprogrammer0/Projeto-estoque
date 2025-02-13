@@ -29,7 +29,7 @@ require_once "verificacao_categoria.php";
             <nav>
                 <ul class="menu">
                     <li> <a href="cadastro_produtos.php">Cadastrar Produtos </a></li>
-                    <li><a href="escolha_categoria.php">Exibir produtos</a></li>
+                    <li><a href="escolha_categoria.php">Produtos</a></li>
                     <li><a href="#">Cadastrar funcionários</a></li>
                     <li><a href="#">Alterar login</a></li>
                     <li><a href="#">Excluir conta</a></li>
@@ -41,11 +41,18 @@ require_once "verificacao_categoria.php";
            $sql = "SELECT p.id, p.nome, p.quantidade, p.valor,p.imagem FROM produtos p
            INNER JOIN categoria c
            ON p.idCategoria = c.idCategoria
-           WHERE c.nomeCategoria = ?";
+           WHERE c.idCategoria = ?";
            $stmt_categoria = $conexao->prepare($sql);
            $stmt_categoria->bind_param("s",$_SESSION['categoria-selecionada']);
            $stmt_categoria->execute();
            $resultado = $stmt_categoria->get_result();
+           if($resultado->num_rows==0){
+            ?>
+            <div class="alert alert-primary" role="alert">
+                Sem produtos
+            </div>
+            <?php
+           }
             while($linha = $resultado->fetch_array()){
                 $img = "../Upload/" . $linha['imagem'];
                 ?>
@@ -54,13 +61,9 @@ require_once "verificacao_categoria.php";
                 <i class="fa-solid fa-x  btnExcluirProduto"></i>
                 <div class="card-body">
                  <h5 class="card-title">Nome: <?php echo $linha['nome'];?></h5>
-                <p class="card-text">Quantidade atual:<?php echo $linha['quantidade'];?></p>
+                <p class="card-text">Quantidade atual: <?php echo $linha['quantidade'];?></p>
                 <p class="card-text">Valor: R$<?php echo number_format($linha['valor'],2,',','.');?></p>
                 <button class="btn btn-warning" onclick="editarEstoque(<?php echo $linha['id'];?>)">Editar estoque </button>
-                <button class="btn btn-warning" onclick="editarProduto(<?php echo $linha['id'];?>)">Editar produto </button>
-
-                
-
   </div>
 </div>
             <?php

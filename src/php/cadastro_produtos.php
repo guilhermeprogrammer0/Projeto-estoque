@@ -1,6 +1,8 @@
 <?php
 require_once "conexao.php";
 require_once "funcoes.php";
+require_once "verificacao_cadastro_categoria.php";
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -28,7 +30,7 @@ require_once "funcoes.php";
         <div class="menu-lateral menu-lateral-cadastro">
             <nav>
                 <ul class="menu">
-                    <li> <a href="cadastro_produtos.php">Cadastrar Produtos </a></li>
+                    <li> <a href="escolha_categoria_cadastro.php">Cadastrar Produtos </a></li>
                     <li><a href="escolha_categoria.php">Produtos</a></li>
                     <li><a href="#">Cadastrar funcionários</a></li>
                     <li><a href="#">Alterar login</a></li>
@@ -36,38 +38,18 @@ require_once "funcoes.php";
                 </ul>
             </nav>
         </div>
-        <div class="area-exibicao main-cadastro-produto">
+        <div class="main-categoria main-categoria2">
             <div class="cadastro-produto">
-                <form action="acoes.php" method="POST" enctype="multipart/form-data">
-                <div class="mb-3">
-                <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome">
-                </div>
-                <div class="mb-3">
-                <label for="Quantidade" class="form-label">Quantidade</label>
-                <input type="text" class="form-control" id="Quantidade" name="quantidade">
-                </div>
-                <div class="mb-3">
-                <label for="valor" class="form-label">Valor</label>
-                <input type="text" class="form-control" id="valor" name="valor">
-                </div>
-                <div class="mb-3">
-                <label for="imagem" class="form-label">Imagem</label>
-                <input type="file" class="form-control" id="imagem" name="imagem">
-                </div>
-                <div class="mb-3">
-                <label  class="form-label">Categoria</label>
-               <?php listar_categoria($conexao);?>
-                </div>
+            <form action="acoes.php" method="POST" enctype="multipart/form-data">
+                <?php exibir_escolha_categoria($conexao,$_SESSION['categoria_cadastro']);
+                ?>
                 <div>
-                    <input type="submit" class="botaoEnviarCategoria" value="Enviar" name="cadastrar_produtos"/>
+                    <input type="submit" class="botaoEnviar" value="Enviar" name="cadastrar_produtos"/>
                 </div>
-</form>
-
-
+            </form>
+            </select>
+            </div>       
             </div>
-        </div>
-
     </main>
     
 </body>

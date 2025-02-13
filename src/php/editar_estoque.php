@@ -30,7 +30,7 @@ $_SESSION['produto_selecionado'] = $id_produto;
         <div class="menu-lateral">
             <nav>
                 <ul class="menu">
-                    <li> <a href="cadastro_produtos.php">Cadastrar Produtos </a></li>
+                    <li> <a href="escolha_categoria_cadastro.php">Cadastrar Produtos </a></li>
                     <li><a href="escolha_categoria.php">Produtos</a></li>
                     <li><a href="#">Cadastrar funcionários</a></li>
                     <li><a href="#">Alterar login</a></li>
@@ -38,23 +38,25 @@ $_SESSION['produto_selecionado'] = $id_produto;
                 </ul>
             </nav>
         </div>
-        <div class="area-exibicao">
+        <div class="area-exibicao area-edicao-estoque">
             <div class="edicao-estoque">
             <?php listar_produto($conexao,$id_produto);?>
-            <div>
                 <form action="acoes.php" method="POST">
-            <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="tipo">
-                <option selected>Tipo</option>
-                <option value="entrada">Entrada</option>
-                <option value="saida">Saída</option>
-                <div class="mb-3">
-                <label for="qtd_movida" class="form-label">Quantidade</label>
-                <input type="text" class="form-control" id="qtd_movida" name="qtd_movida">
+                    <div class="form-edicao-estoque">
+                    <select class="form-select form-select-lg mb-3 lista-edicao-estoque" aria-label="Large select example" name="tipo">
+                    <option selected>Tipo</option>
+                    <option value="entrada">Entrada</option>
+                    <option value="saida">Saída</option>
+                    <div class="mb-3">
+                    <input type="text" class="form-control" id="qtd_movida" name="qtd_movida" placeholder="Quantidade">
+                    </div>
+                 <div class="mb-3">
+                    <input type="submit" class="botaoEnviar" value="Enviar" name="editar_Estoque"/>
                 </div>
-                <div class="mb-3">
-                    <input type="submit" class="botaoEnviarCategoria" value="Enviar" name="editar_Estoque"/>
-                </div>
-</div>
+                    </div>
+            </div>
+              
+       
 </form>
 
 </select>
