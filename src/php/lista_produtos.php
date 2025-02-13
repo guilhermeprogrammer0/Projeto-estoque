@@ -1,6 +1,6 @@
 <?php
-session_start();
 require_once "conexao.php";
+require_once "verificacao_categoria.php";
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -28,7 +28,7 @@ require_once "conexao.php";
         <div class="menu-lateral">
             <nav>
                 <ul class="menu">
-                    <li> <a href="#">Cadastrar Produtos </a></li>
+                    <li> <a href="cadastro_produtos.php">Cadastrar Produtos </a></li>
                     <li><a href="escolha_categoria.php">Exibir produtos</a></li>
                     <li><a href="#">Cadastrar funcionários</a></li>
                     <li><a href="#">Alterar login</a></li>
@@ -38,7 +38,7 @@ require_once "conexao.php";
         </div>
         <div class="area-exibicao main-produtos">
            <?php 
-           $sql = "SELECT p.nome, p.quantidade, p.valor FROM produtos p
+           $sql = "SELECT p.id, p.nome, p.quantidade, p.valor,p.imagem FROM produtos p
            INNER JOIN categoria c
            ON p.idCategoria = c.idCategoria
            WHERE c.nomeCategoria = ?";
@@ -47,22 +47,28 @@ require_once "conexao.php";
            $stmt_categoria->execute();
            $resultado = $stmt_categoria->get_result();
             while($linha = $resultado->fetch_array()){
+                $img = "../Upload/" . $linha['imagem'];
                 ?>
-                <div class="card" style="width: 18rem;">
-                <!--<img src="..." class="card-img-top" alt="...">-->
+                <div class="card card-imagem">
+                <img src="<?php echo $img ?>" class="card-img-top img-produto" alt="<?php echo $linha['nome'];?>">
+                <i class="fa-solid fa-x  btnExcluirProduto"></i>
                 <div class="card-body">
-                 <h5 class="card-title"><?php echo $linha['nome'];?></h5>
-                <p class="card-text"><?php echo $linha['quantidade'];?></p>
-                <p class="card-text"><?php echo $linha['valor'];?></p>
+                 <h5 class="card-title">Nome: <?php echo $linha['nome'];?></h5>
+                <p class="card-text">Quantidade atual:<?php echo $linha['quantidade'];?></p>
+                <p class="card-text">Valor: R$<?php echo number_format($linha['valor'],2,',','.');?></p>
+                <button class="btn btn-warning" onclick="editarEstoque(<?php echo $linha['id'];?>)">Editar estoque </button>
+                <button class="btn btn-warning" onclick="editarProduto(<?php echo $linha['id'];?>)">Editar produto </button>
+
+                
+
   </div>
 </div>
             <?php
-            $stmt_categoria->close();
             }
             ?>
         </div>
 
     </main>
-    
+    <script src="../js/acoes.js"></script>
 </body>
 </html>
