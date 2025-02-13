@@ -86,7 +86,6 @@ header .avatarUser .btnSair a{
 .menu-horizontal-produtos{
     display: flex;
     flex-direction: column;
-    border:solid 2px red;
     height:auto;
 }
 .menu-horizontal{
@@ -101,7 +100,8 @@ header .avatarUser .btnSair a{
     gap:2em;
     width:90%;
     height:600px;
-    border:solid 2px orange;
+    margin:auto;
+    overflow-y: auto;
 }
 .formularioGeral{
     height:500px;

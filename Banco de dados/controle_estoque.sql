@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13/02/2025 às 13:45
+-- Tempo de geração: 13/02/2025 às 18:44
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -54,17 +54,18 @@ CREATE TABLE `movimentacao_estoque` (
   `idMovimentacao` int(11) NOT NULL,
   `tipo` enum('entrada','saida','','') NOT NULL,
   `qtd_movida` int(11) NOT NULL,
-  `date` datetime NOT NULL,
-  `idProduto` int(11) NOT NULL
+  `data` datetime NOT NULL,
+  `idProduto` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Despejando dados para a tabela `movimentacao_estoque`
 --
 
-INSERT INTO `movimentacao_estoque` (`idMovimentacao`, `tipo`, `qtd_movida`, `date`, `idProduto`) VALUES
-(1, 'entrada', 2, '2025-02-13 09:42:48', 1),
-(2, 'saida', 4, '2025-02-13 09:43:34', 1);
+INSERT INTO `movimentacao_estoque` (`idMovimentacao`, `tipo`, `qtd_movida`, `data`, `idProduto`) VALUES
+(1, 'entrada', 2, '2025-02-13 00:00:00', NULL),
+(2, 'saida', 4, '2025-02-13 00:00:00', NULL),
+(3, 'entrada', 2, '2025-02-13 12:14:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -81,12 +82,25 @@ CREATE TABLE `produtos` (
   `idCategoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Despejando dados para a tabela `produtos`
+-- Estrutura para tabela `usuarios`
 --
 
-INSERT INTO `produtos` (`id`, `nome`, `quantidade`, `valor`, `imagem`, `idCategoria`) VALUES
-(1, 'Notebook LG', 2, 450, '67ade2ba47a6e.jpg', 2);
+CREATE TABLE `usuarios` (
+  `idUsuario` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `usuario` varchar(100) NOT NULL,
+  `senha` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`idUsuario`, `nome`, `usuario`, `senha`) VALUES
+(1, 'Guilherme', 'gui@mail.com', 'gui');
 
 --
 -- Índices para tabelas despejadas
@@ -113,6 +127,12 @@ ALTER TABLE `produtos`
   ADD KEY `FK_PRODUTOS_CATEGORIA` (`idCategoria`);
 
 --
+-- Índices de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`idUsuario`);
+
+--
 -- AUTO_INCREMENT para tabelas despejadas
 --
 
@@ -126,13 +146,19 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de tabela `movimentacao_estoque`
 --
 ALTER TABLE `movimentacao_estoque`
-  MODIFY `idMovimentacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idMovimentacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para tabelas despejadas

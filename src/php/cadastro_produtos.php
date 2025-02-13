@@ -31,7 +31,7 @@ error_reporting(0);
         <div class="menu-lateral menu-lateral-cadastro">
         <nav>
                 <ul class="menu">
-                    <li> <a href="cadastro_produtos.php">Cadastrar Produtos </a></li>
+                    <li> <a href="escolha_categoria_cadastro.php">Cadastrar Produtos </a></li>
                     <li><a href="escolha_categoria.php">Produtos</a></li>
                     <li><a href="movimentacoes.php">Movimentações</a></li>
                     <li><a href="cadastro_usuarios.php">Cadastrar funcionários</a></li>

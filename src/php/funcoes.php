@@ -19,16 +19,18 @@ function cadastrar_produto($conexao,$nome,$quantidade,$valor,$imagem,$idCategori
     $stmt_cadastrar->close();
 }
 function excluir_produto($conexao,$id_produto){
-    $sql_desassociar = "UPDATE movimentacao_estoques set idProduto = NULL WHERE idProduto = ?";
+    $sql_desassociar = "UPDATE movimentacao_estoque set idProduto = NULL WHERE idProduto = ?";
     $stmt_desassociar = $conexao->prepare($sql_desassociar);
     $stmt_desassociar->bind_param("i",$id_produto);
     if($stmt_desassociar->execute()){
-        $sql_excluir = "DELETE from produtos WHERE id = ?";
+        $sql_excluir = "DELETE FROM produtos WHERE id = ?";
         $stmt_excuir = $conexao->prepare($sql_excluir);
         $stmt_excuir->bind_param("i",$id_produto);
         if($stmt_excuir->execute()){
             ?>
-            <script>alert("Produto excluído com sucesso!")</script>
+            <script>alert("Produto excluído com sucesso!")
+                window.location.href = "lista_produtos.php";
+            </script>
             <?php
         }
         else{
@@ -37,7 +39,7 @@ function excluir_produto($conexao,$id_produto){
         $stmt_excuir->close();
     }
     else{
-        echo "Erro ao desassociar!";
+        echo "Erro ao desassociar!" . $stmt_desassociar->error;
     }
     $stmt_desassociar->close();
 }
@@ -215,7 +217,7 @@ function exibir_escolha_categoria($conexao,$tipo){
     }
 }
 function exibir_movimentacao($conexao){
-    $sql = "SELECT m.idMovimentacao,m.tipo, m.qtd_movida, p.nome,m.data FROM movimentacao_estoque m INNER JOIN produtos p ON
+    $sql = "SELECT m.tipo, m.qtd_movida, IF(m.idProduto IS NULL,'Excluído',p.nome) nome,m.data FROM movimentacao_estoque m LEFT JOIN produtos p ON
     m.idProduto = p.id";
     $resultado = $conexao->query($sql);
     if(!$resultado){
@@ -226,10 +228,9 @@ function exibir_movimentacao($conexao){
     ?>
     <tr>
     
-      <td><?php echo $linha['idMovimentacao'];?></td>
+      <td><?php echo $linha['nome'];?></td>
       <td><?php echo ucfirst($linha['tipo']);?></td>
       <td><?php echo $linha['qtd_movida'];?></td>
-      <td><?php echo $linha['nome'];?></td>
       <td><?php echo $data->format("d/m/Y");?></td>
     </tr>
 <?php

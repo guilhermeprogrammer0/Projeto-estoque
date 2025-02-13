@@ -43,11 +43,10 @@ require_once "verificacao_login.php";
         <table class="table">
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Tipo</th>
-      <th scope="col">Quantidade</th>
-      <th scope="col">Produto</th>
-      <th scope="col">Data</th>
+    <th scope="col">Produto</th>
+    <th scope="col">Tipo</th>
+    <th scope="col">Quantidade</th>
+    <th scope="col">Data</th>
     </tr>
   </thead>
   <tbody>
