@@ -6,11 +6,14 @@
 body{
     background-color: #F2F2F2;
 }
+.fundo{
+    background: linear-gradient(to right,#151617,#0059B2);
+}
 header{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right,#151617,#0059B2);
+    background: linear-gradient(to left,#151617,#0059B2);
     width:100%;
     height:120px;
     position: relative;
@@ -31,6 +34,10 @@ header .avatarUser .btnSair{
     position: absolute;
     right:0;
 }
+header .avatarUser .btnSair a{
+    text-decoration: none;
+    color:white;
+}
 .menu-principal{
     display:flex;
     width:100%;
@@ -50,7 +57,7 @@ header .avatarUser .btnSair{
     width:80%;
     height:100%;
 }
-.menu{
+.menu,.menu-horizontal{
     background-color: #282B36;
     width:100%;
     height:100vh;
@@ -60,21 +67,82 @@ header .avatarUser .btnSair{
     justify-content: center;
     gap:25px;
 }
-.menu li {
+.menu li,.menu-horizontal li {
     list-style: none;
     padding:0.8em;
     width:100%;
     margin:0;
 }
-.menu li:hover{
+.menu li:hover, .menu-horizontal li:hover{
     background-color: #0059B2;
     border-radius:0.1em;
     cursor:pointer;
 }
-.menu li a{
+.menu li a, .menu-horizontal li a{
     text-decoration: none;
     color:#fff;
     font-size: 1.2em;
+}
+.menu-horizontal-produtos{
+    display: flex;
+    flex-direction: column;
+    border:solid 2px red;
+    height:auto;
+}
+.menu-horizontal{
+
+    flex-direction: row;
+    height:200px;
+}
+.area-exibicao2{
+    display:flex;
+    justify-content: center;
+    align-items:flex-start;
+    gap:2em;
+    width:90%;
+    height:600px;
+    border:solid 2px orange;
+}
+.formularioGeral{
+    height:500px;
+    width:60%;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    margin-top:100px;
+}
+
+.formularioGeral h1{
+    font-size: 4em;
+    color:#F2F2F2;
+    font-family: 'Barlow';
+
+}
+.formulario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:600px;
+    padding:0.5em;
+    border: solid 1px rgba(0, 0, 0, 0.363);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); 
+}
+.formulario label{
+    color:white;
+    font-size: 1.4em;
+}
+.formulario input{
+    padding:0.5em;
+    border-radius: 0.2em;
+    width:300px;
+    border:none;
+}
+.link-cadastro p, .link-cadastro a{
+    color:white;
+    text-decoration: none;
 }
 .main-categoria{
     display:flex;
@@ -86,6 +154,8 @@ header .avatarUser .btnSair{
 {
     width:80%;
     cursor: pointer;
+    padding:0.8em;
+    width:60%;
 }
 .botaoEnviar{
     width:250px;
@@ -110,21 +180,14 @@ header .avatarUser .btnSair{
     margin-top:10px;
 }
 
-.main-produtos{
-    display:flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap:5px;
-    height:800px;
-    overflow-y: auto;
-}
 .card-imagem{
     position:relative;
+    height:400px;
 }
-.img-produto{
 
-    width:250px;
-    height:250px;
+.img-produto{
+    width:200px;
+    height:200px;
     text-align: center;
 }
 .btnExcluirProduto{
@@ -177,5 +240,6 @@ header .avatarUser .btnSair{
     font-size: 3em;
 }
 .movimentacoes{
-    border:solid 2px red;
+    width:60%;
+    margin:auto;
 }

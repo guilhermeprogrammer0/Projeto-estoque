@@ -29,4 +29,10 @@ if($_POST['cadastrar_produtos']){
     }
     unset($_SESSION['categoria_cadastro']);
 }
+if($_POST['cadastrar']){
+    cadastrar_usuario($conexao,$_POST['nome'],$_POST['usuario'],$_POST['senha']);
+}
+if($_POST['login']){
+    fazer_login($conexao,$_POST['usuario'],$_POST['senha']);
+}
 ?>

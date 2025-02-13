@@ -2,6 +2,7 @@
 require_once "conexao.php";
 require_once "funcoes.php";
 require_once "verificacao_cadastro_categoria.php";
+require_once "verificacao_login.php";
 error_reporting(0);
 ?>
 <!DOCTYPE html>
@@ -19,20 +20,21 @@ error_reporting(0);
         <h1>Gestão de estoque</h1>
         <div class="avatarUser">
             <div>
-                <h4>Olá, Guilherme!</h4>
+            <?php mostrar_nome($_SESSION['nome_usuario_logado']);?>
             </div>
             <div class="btnSair">
-            <i class="fa-solid fa-right-from-bracket fa-2x"></i>
+            <a href="sair.php"><i class="fa-solid fa-right-from-bracket fa-2x"></i> </a>
             </div>
         </div>
     </header>
     <main class="menu-principal menu-principal-cadastro">
         <div class="menu-lateral menu-lateral-cadastro">
-            <nav>
+        <nav>
                 <ul class="menu">
-                    <li> <a href="escolha_categoria_cadastro.php">Cadastrar Produtos </a></li>
+                    <li> <a href="cadastro_produtos.php">Cadastrar Produtos </a></li>
                     <li><a href="escolha_categoria.php">Produtos</a></li>
-                    <li><a href="#">Cadastrar funcionários</a></li>
+                    <li><a href="movimentacoes.php">Movimentações</a></li>
+                    <li><a href="cadastro_usuarios.php">Cadastrar funcionários</a></li>
                     <li><a href="#">Alterar login</a></li>
                     <li><a href="#">Excluir conta</a></li>
                 </ul>

@@ -18,6 +18,29 @@ function cadastrar_produto($conexao,$nome,$quantidade,$valor,$imagem,$idCategori
    
     $stmt_cadastrar->close();
 }
+function excluir_produto($conexao,$id_produto){
+    $sql_desassociar = "UPDATE movimentacao_estoques set idProduto = NULL WHERE idProduto = ?";
+    $stmt_desassociar = $conexao->prepare($sql_desassociar);
+    $stmt_desassociar->bind_param("i",$id_produto);
+    if($stmt_desassociar->execute()){
+        $sql_excluir = "DELETE from produtos WHERE id = ?";
+        $stmt_excuir = $conexao->prepare($sql_excluir);
+        $stmt_excuir->bind_param("i",$id_produto);
+        if($stmt_excuir->execute()){
+            ?>
+            <script>alert("Produto excluído com sucesso!")</script>
+            <?php
+        }
+        else{
+            echo "Erro ao excluir!";
+        }
+        $stmt_excuir->close();
+    }
+    else{
+        echo "Erro ao desassociar!";
+    }
+    $stmt_desassociar->close();
+}
 function cadastrar_categoria($conexao,$nomeCategoria){
     $sql_verifica_categoria = "SELECT nomeCategoria from categoria WHERE nomeCategoria = ?";
     $stmt_verifica = $conexao->prepare($sql_verifica_categoria);
@@ -61,6 +84,39 @@ function listar_categoria($conexao){
             <?php
     
 }
+function listar_produtos_total($conexao,$id_produto){
+    $sql = "SELECT p.id, p.nome, p.quantidade, p.valor,p.imagem FROM produtos p
+           INNER JOIN categoria c
+           ON p.idCategoria = c.idCategoria
+           WHERE c.idCategoria = ?";
+           $stmt_categoria = $conexao->prepare($sql);
+           $stmt_categoria->bind_param("s",$id_produto);
+           $stmt_categoria->execute();
+           $resultado = $stmt_categoria->get_result();
+           if($resultado->num_rows==0){
+            ?>
+            <div class="alert alert-primary" role="alert">
+                Sem produtos
+            </div>
+            <?php
+           }
+            while($linha = $resultado->fetch_array()){
+                $img = "../Upload/" . $linha['imagem'];
+                ?>
+                <div class="card card-imagem">
+                <img src="<?php echo $img ?>" class="card-img-top img-produto" alt="<?php echo $linha['nome'];?>">
+                <i class="fa-solid fa-x  btnExcluirProduto" onclick="excluirProduto(<?php echo $linha['id'];?>)"></i>
+                <div class="card-body">
+                 <h5 class="card-title">Nome: <?php echo $linha['nome'];?></h5>
+                <p class="card-text">Quantidade atual: <?php echo $linha['quantidade'];?></p>
+                <p class="card-text">Valor: R$<?php echo number_format($linha['valor'],2,',','.');?></p>
+                <button class="btn btn-warning" onclick="editarEstoque(<?php echo $linha['id'];?>)">Editar estoque </button>
+  </div>
+</div>
+            <?php
+}
+}      
+
 function listar_produto($conexao,$id_produto){
     $sql = "SELECT nome, imagem,quantidade FROM produtos WHERE id = ?";
     $stmt = $conexao->prepare($sql);
@@ -162,13 +218,16 @@ function exibir_movimentacao($conexao){
     $sql = "SELECT m.idMovimentacao,m.tipo, m.qtd_movida, p.nome,m.data FROM movimentacao_estoque m INNER JOIN produtos p ON
     m.idProduto = p.id";
     $resultado = $conexao->query($sql);
+    if(!$resultado){
+        die("erro: " . $conexao->error());
+    }
     while($linha = $resultado->fetch_array()){
     $data = new DateTime($linha['data']);
     ?>
     <tr>
     
       <td><?php echo $linha['idMovimentacao'];?></td>
-      <td><?php echo $linha['tipo'];?></td>
+      <td><?php echo ucfirst($linha['tipo']);?></td>
       <td><?php echo $linha['qtd_movida'];?></td>
       <td><?php echo $linha['nome'];?></td>
       <td><?php echo $data->format("d/m/Y");?></td>
@@ -176,4 +235,66 @@ function exibir_movimentacao($conexao){
 <?php
 }
 }
+function cadastrar_usuario($conexao,$nome,$usuario,$senha){
+    $sql_verificar = "SELECT usuario FROM usuarios WHERE usuario = ?";
+    $stmt_verifica = $conexao->prepare($sql_verificar);
+    $stmt_verifica->bind_param("s",$usuario);
+    if($stmt_verifica->execute()){
+        $resultado = $stmt_verifica->get_result();
+        if($resultado->num_rows>0){
+            ?>
+            <script>alert("Usuário Indisponível");
+                window.location.href = 'cadastro_usuarios.php';
+            </script>
+            <?php
+        }
+        else{
+            $sql_cadastrar = "INSERT INTO usuarios VALUES (default,?,?,?)";
+            $stmt_cadastrar = $conexao->prepare($sql_cadastrar);
+            $stmt_cadastrar->bind_param("sss",$nome,$usuario,$senha);
+            if($stmt_cadastrar->execute()){
+                ?>
+            <script>alert("Cadastro feito com sucesso!");
+                window.location.href = 'login.php';
+            </script>
+            <?php
+            }
+            else{
+                echo "Erro ao cadastrar!";
+            }
+        }
+    }
+    else{
+        echo "ERRO!";
+    }
+}
+function fazer_login($conexao,$usuario,$senha){
+    $sql_logar = "SELECT * FROM usuarios WHERE usuario = ?  AND senha = ?";
+    $stmt_logar = $conexao->prepare($sql_logar);
+    $stmt_logar->bind_param("ss",$usuario,$senha);
+    if($stmt_logar->execute()){
+        $resultado = $stmt_logar->get_result();
+        $linha = $resultado->fetch_array();
+        if($resultado->num_rows>0){
+            $_SESSION['usuario_logado'] = $linha['idUsuario'];
+            $_SESSION['nome_usuario_logado'] = $linha['nome'];
+
+            header("location:escolha_categoria.php");
+        }
+        else{
+            ?>
+            <script>alert("Usuário e/ou senhas inválidos!")
+                window.location.href = "login.php";
+            </script>
+            <?php
+        }
+    }
+    else{
+        echo "Erro!";
+    }
+}
+function mostrar_nome($nome){
+    echo "<h5> Olá, <strong>$nome</strong>! </h5>";
+}
+
 ?>
