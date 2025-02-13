@@ -45,7 +45,7 @@ error_reporting(0);
                 <form action="acoes.php" method="POST">
             <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="categoria_cadastro">
                 <option selected>Cadastrar</option>
-                <option value="categoria">Categorias de produtos</option>
+                <option value="categoria">Categorias</option>
                 <option value="produtos">Produtos</option>
                 <div>
                     <input type="submit" class="botaoEnviar" value="Enviar" name="escolha_cadastro"/>

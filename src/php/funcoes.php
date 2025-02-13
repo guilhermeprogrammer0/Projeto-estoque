@@ -112,7 +112,7 @@ function listar_produtos_total($conexao,$id_produto){
                  <h5 class="card-title">Nome: <?php echo $linha['nome'];?></h5>
                 <p class="card-text">Quantidade atual: <?php echo $linha['quantidade'];?></p>
                 <p class="card-text">Valor: R$<?php echo number_format($linha['valor'],2,',','.');?></p>
-                <button class="btn btn-warning" onclick="editarEstoque(<?php echo $linha['id'];?>)">Editar estoque </button>
+                <button class="btnEditarEstoque" onclick="editarEstoque(<?php echo $linha['id'];?>)">Editar estoque </button>
   </div>
 </div>
             <?php
@@ -127,8 +127,8 @@ function listar_produto($conexao,$id_produto){
     $linha = $stmt->get_result()->fetch_array();
     $img = "../Upload/" . $linha['imagem'];
     ?>
-    <div class="card card-selecionado" >
-  <img src="<?php echo $img;?>" class="card-img-top img-produto" alt="Card image cap">
+    <div class="card" >
+  <img src="<?php echo $img;?>" class="card-img-top img-produto-selecionado">
   <div class="card-body">
     <h5 class="card-title">Nome: <?php echo $linha['nome'];?></h5>
     <p class="card-text">Quantidade atual: <?php echo $linha['quantidade'];?> </p>

@@ -45,7 +45,7 @@ $_SESSION['produto_selecionado'] = $id_produto;
             <?php listar_produto($conexao,$id_produto);?>
                 <form action="acoes.php" method="POST">
                     <div class="form-edicao-estoque">
-                    <select class="form-select form-select-lg mb-3 lista-edicao-estoque" aria-label="Large select example" name="tipo">
+                    <select class="form-select mb-3 lista-edicao-estoque" aria-label="Large select example" name="tipo">
                     <option selected>Tipo</option>
                     <option value="entrada">Entrada</option>
                     <option value="saida">Saída</option>
