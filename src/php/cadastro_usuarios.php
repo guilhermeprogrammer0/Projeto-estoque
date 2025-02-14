@@ -31,7 +31,10 @@ error_reporting(0);
                 <input type="password" name="senha" id="senha" required/>
             </div>
             <div class="mb-3">
-            <input type="submit" class="botaoEnviar" value="Entrar" name="cadastrar"/>
+            <input type="submit" class="botaoEnviar" value="Cadastrar" name="cadastrar"/>
+            </div>
+            <div class="mb-3 link-cadastro">
+            <p><a href="login.php">Entrar</a></p>
             </div>
         </div>
         </form>
