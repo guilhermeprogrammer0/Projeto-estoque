@@ -2,6 +2,7 @@
 require_once "conexao.php";
 require_once "funcoes.php";
 require_once "verificacao_login.php";
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -33,8 +34,7 @@ require_once "verificacao_login.php";
                     <li><a href="escolha_categoria.php">Produtos</a></li>
                     <li><a href="movimentacoes.php">Movimentações</a></li>
                     <li><a href="cadastro_usuarios.php">Cadastrar funcionários</a></li>
-                    <li><a href="#">Alterar login</a></li>
-                    <li><a href="#">Excluir conta</a></li>
+                    <li><a href="perfil.php">Meu perfil</a></li>
                 </ul>
             </nav>
         </div>

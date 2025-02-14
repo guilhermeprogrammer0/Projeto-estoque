@@ -2,8 +2,9 @@
 require_once "funcoes.php";
 require_once "conexao.php";
 require_once "verificacao_login.php";
-$id_produto = $_REQUEST['id'];
+$id_produto = $_POST['id'];
 $_SESSION['produto_selecionado'] = $id_produto;
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -35,8 +36,7 @@ $_SESSION['produto_selecionado'] = $id_produto;
                     <li><a href="escolha_categoria.php">Produtos</a></li>
                     <li><a href="movimentacoes.php">Movimentações</a></li>
                     <li><a href="cadastro_usuarios.php">Cadastrar funcionários</a></li>
-                    <li><a href="#">Alterar login</a></li>
-                    <li><a href="#">Excluir conta</a></li>
+                    <li><a href="perfil.php">Meu perfil</a></li>
                 </ul>
             </nav>
         </div>
@@ -45,12 +45,12 @@ $_SESSION['produto_selecionado'] = $id_produto;
             <?php listar_produto($conexao,$id_produto);?>
                 <form action="acoes.php" method="POST">
                     <div class="form-edicao-estoque">
-                    <select class="form-select mb-3 lista-edicao-estoque" aria-label="Large select example" name="tipo">
+                    <select class="form-select mb-3 lista-edicao-estoque" aria-label="Large select example" name="tipo" required>
                     <option selected>Tipo</option>
                     <option value="entrada">Entrada</option>
                     <option value="saida">Saída</option>
                     <div class="mb-3">
-                    <input type="text" class="form-control" id="qtd_movida" name="qtd_movida" placeholder="Quantidade">
+                    <input type="text" class="form-control" id="qtd_movida" name="qtd_movida" placeholder="Quantidade"required>
                     </div>
                  <div class="mb-3">
                     <input type="submit" class="botaoEnviar" value="Enviar" name="editar_Estoque"/>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13/02/2025 às 18:44
+-- Tempo de geração: 14/02/2025 às 19:45
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -58,15 +58,6 @@ CREATE TABLE `movimentacao_estoque` (
   `idProduto` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Despejando dados para a tabela `movimentacao_estoque`
---
-
-INSERT INTO `movimentacao_estoque` (`idMovimentacao`, `tipo`, `qtd_movida`, `data`, `idProduto`) VALUES
-(1, 'entrada', 2, '2025-02-13 00:00:00', NULL),
-(2, 'saida', 4, '2025-02-13 00:00:00', NULL),
-(3, 'entrada', 2, '2025-02-13 12:14:20', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -94,13 +85,6 @@ CREATE TABLE `usuarios` (
   `usuario` varchar(100) NOT NULL,
   `senha` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Despejando dados para a tabela `usuarios`
---
-
-INSERT INTO `usuarios` (`idUsuario`, `nome`, `usuario`, `senha`) VALUES
-(1, 'Guilherme', 'gui@mail.com', 'gui');
 
 --
 -- Índices para tabelas despejadas
@@ -146,19 +130,19 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de tabela `movimentacao_estoque`
 --
 ALTER TABLE `movimentacao_estoque`
-  MODIFY `idMovimentacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idMovimentacao` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restrições para tabelas despejadas

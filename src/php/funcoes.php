@@ -18,6 +18,36 @@ function cadastrar_produto($conexao,$nome,$quantidade,$valor,$imagem,$idCategori
    
     $stmt_cadastrar->close();
 }
+function editar_produto($conexao,$id_produto,$nome,$valor,$imagem,$id_categoria){
+    $arquivo = $_FILES['imagem'];
+    $nomeImagem = $arquivo['name'];
+    $tmp_name = $arquivo['tmp_name'];
+    $extensao = pathinfo($nomeImagem, PATHINFO_EXTENSION);
+    $novo_nome = uniqid() . "." .$extensao;
+    move_uploaded_file($tmp_name,'../Upload/'.$novo_nome);
+    if($arquivo['size'] > 0){
+        $sql_editar = "UPDATE produtos set nome = ?, valor = ?, imagem = ?, idCategoria = ? WHERE id = ?";
+        $stmt_editar = $conexao->prepare($sql_editar);
+        $stmt_editar->bind_param("sdsii",$nome,$valor,$novo_nome,$id_categoria,$id_produto);
+    }
+    else{
+        $sql_editar = "UPDATE produtos set nome = ?, valor = ?, idCategoria = ? WHERE id = ?";
+        $stmt_editar = $conexao->prepare($sql_editar);
+        $stmt_editar->bind_param("sdii",$nome,$valor,$id_categoria,$id_produto);
+    }
+    if($stmt_editar->execute()){
+        $_SESSION['categoria-selecionada'] = $id_categoria;
+        ?>
+        <script>alert("Produto alterado com sucesso!")
+            window.location.href = "lista_produtos.php";
+        </script>
+        <?php
+    }
+    else{
+        echo "ERRO!" . $stmt_editar->error;
+    }
+    $stmt_editar->close();
+}
 function excluir_produto($conexao,$id_produto){
     $sql_desassociar = "UPDATE movimentacao_estoque set idProduto = NULL WHERE idProduto = ?";
     $stmt_desassociar = $conexao->prepare($sql_desassociar);
@@ -77,7 +107,7 @@ function listar_categoria($conexao){
     <?php
     while($linha = $resultado->fetch_array())
     {
-    ?>
+        ?>     
                 <option value="<?php echo $linha['idCategoria'];?>"><?php  echo $linha['nomeCategoria'];?></option>
                 <?php
     }
@@ -107,12 +137,24 @@ function listar_produtos_total($conexao,$id_produto){
                 ?>
                 <div class="card card-imagem">
                 <img src="<?php echo $img ?>" class="card-img-top img-produto" alt="<?php echo $linha['nome'];?>">
-                <i class="fa-solid fa-x  btnExcluirProduto" onclick="excluirProduto(<?php echo $linha['id'];?>)"></i>
+                <form action="acoes.php" method="POST" onsubmit="return confirm('Deseja mesmo excluir?')">
+                <input type="hidden" value="<?php echo $linha['id'];?>" name="id">
+                <button type="submit" class="fa-solid fa-x  btnExcluirProduto" name="btnExcluir"></button>
+                </form>
                 <div class="card-body">
                  <h5 class="card-title">Nome: <?php echo $linha['nome'];?></h5>
                 <p class="card-text">Quantidade atual: <?php echo $linha['quantidade'];?></p>
                 <p class="card-text">Valor: R$<?php echo number_format($linha['valor'],2,',','.');?></p>
-                <button class="btnEditarEstoque" onclick="editarEstoque(<?php echo $linha['id'];?>)">Editar estoque </button>
+                <form action="editar_estoque.php" method="POST">
+                <input type="hidden" value="<?php echo $linha['id'];?>" name="id">
+                <button type="submit" class="botaoGeral btnEditar" name="btnEditar">Editar estoque</button>
+                </form>
+                <form action="editar_produto.php" method="POST">
+                <input type="hidden" value="<?php echo $linha['id'];?>" name="id">
+                <button type="submit" class="botaoGeral btnEditar" name="btnEditar">Editar produto</button>
+                </form>
+                
+                
   </div>
 </div>
             <?php
@@ -231,7 +273,7 @@ function exibir_movimentacao($conexao){
       <td><?php echo $linha['nome'];?></td>
       <td><?php echo ucfirst($linha['tipo']);?></td>
       <td><?php echo $linha['qtd_movida'];?></td>
-      <td><?php echo $data->format("d/m/Y");?></td>
+      <td><?php echo $data->format("d/m/Y") . " às " . $data->format("H:i");?> </td>
     </tr>
 <?php
 }
@@ -269,6 +311,39 @@ function cadastrar_usuario($conexao,$nome,$usuario,$senha){
         echo "ERRO!";
     }
 }
+function editar_usuario($conexao,$nome,$usuario,$senha,$id_usuario){
+    $sql_verificar = "SELECT usuario FROM usuarios WHERE usuario = ? AND idUsuario != ?";
+    $stmt_verifica = $conexao->prepare($sql_verificar);
+    $stmt_verifica->bind_param("si",$usuario,$id_usuario);
+    $stmt_verifica->execute();
+    $qtd_resultado = $stmt_verifica->get_result()->num_rows;
+    if($qtd_resultado>0){
+        ?>
+        <script>alert("Usuário já existe no banco de dados!")
+            window.location.href = "editar_usuario.php";
+        </script>
+        <?php
+    }
+    else{
+        $sql_editar = "UPDATE usuarios set nome = ?, usuario = ?, senha = ? WHERE idUsuario = ?";
+        $stmt_editar = $conexao->prepare($sql_editar);
+        $stmt_editar->bind_param("sssi",$nome,$usuario,$senha,$id_usuario);
+        if($stmt_editar->execute()){
+            $_SESSION['nome_usuario_logado'] = $nome;
+            ?>
+        <script>alert("Usuário alterado com sucesso!")
+            window.location.href = "perfil.php";
+        </script>
+        <?php
+        }
+        else{
+            echo "Erro " . $stmt_editar->error;
+        }
+        $stmt_editar->close();
+    }
+    $stmt_verifica->close();
+    
+}
 function fazer_login($conexao,$usuario,$senha){
     $sql_logar = "SELECT * FROM usuarios WHERE usuario = ?  AND senha = ?";
     $stmt_logar = $conexao->prepare($sql_logar);
@@ -294,8 +369,104 @@ function fazer_login($conexao,$usuario,$senha){
         echo "Erro!";
     }
 }
+function excluir_usuario($conexao,$id_usuario){
+    $sql_excluir = "DELETE FROM usuarios WHERE idUsuario = ?";
+    $stmt_excuir = $conexao->prepare($sql_excluir);
+    $stmt_excuir->bind_param("i",$id_usuario);
+    if($stmt_excuir->execute()){
+        ?>
+        <script>alert("Usuário excluído com sucesso!")
+            window.location.href = "sair.php";
+        </script>
+        <?php
+    }
+}
 function mostrar_nome($nome){
     echo "<h5> Olá, <strong>$nome</strong>! </h5>";
 }
-
+function formulario_acoes($link,$valor,$name,$mensagemBotao){
+    ?>
+    <form action="<?php echo $link . 'php';?>" method="POST">
+    <input type="hidden" value="<?php echo $valor;?>" name="<?php echo $valor;?>">
+    <button type="submit" class="btnEditarEstoque" name="<?php echo $name;?>"><?php echo $mensagemBotao;?></button>
+    </form>
+    <?php
+}
+function form_editar_usuario($conexao,$id_usuario){
+    $sql = "SELECT * from usuarios WHERE idUsuario = ?";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("i",$id_usuario);
+    if($stmt->execute()){
+        $resultado = $stmt->get_result();
+        $linha = $resultado->fetch_array();
+    ?>
+        <form action="acoes.php" method="POST">
+        <div class="form-edicao-usuario">
+        <label for="nome" class="form-label">Nome</label>
+            <div class="mb-3">  
+              <input type="text" class="form-control" name="nome" id="nome" value="<?php echo $linha['nome'];?>">
+            </div>
+        <label for="usuario" class="form-label">Usuário</label>
+            <div class="mb-3">  
+              <input type="text" class="form-control" name="usuario" id="usuario" value="<?php echo $linha['usuario'];?>">
+            </div>
+            <label for="senha" class="form-label">Senha</label>
+            <div class="mb-3">
+                <input type="password" class="form-control" name="senha" id="senha" value="<?php echo $linha['senha'];?>">
+            </div>
+            <div class="mb-3">
+            <input type="submit" class="botaoEnviar" value="Editar dados" name="editarUsuario"/>
+            </div>
+        </div>
+    </form>
+        <?php
+    }
+}
+function exibir_dados_alteracao($conexao,$id_produto){
+    $sql = "SELECT * FROM produtos WHERE id = ?";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("i",$id_produto);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $linha = $resultado->fetch_array();
+    ?>
+    <div class="cadastro-produto">
+            <form action="acoes.php" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $linha['id'];?>">
+                </div>
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $linha['nome'];?>">
+                </div>
+                <div class="mb-3">
+                <label for="valor" class="form-label">Valor</label>
+                <input type="text" class="form-control" id="valor" name="valor" value="<?php echo $linha['valor'];?>" >
+                </div>
+                <div class="mb-3">
+                <label for="imagem" class="form-label">Imagem</label>
+                <input type="file" class="form-control" id="imagem" name="imagem">
+                </div>
+                <div class="mb-3">
+                <label  class="form-label">Categoria</label>
+                <?php listar_categoria($conexao);?>
+                </div>
+                <div>
+                    <input type="submit" class="botaoEnviar" value="Enviar" name="editar_produtos"/>
+                </div>
+            </form>
+            </select>
+            </div>       
+            </div>
+            <?php
+}
+function exibir_categoria_selecionada($conexao,$id_categoria){
+        $sql = "SELECT nomeCategoria FROM categoria WHERE idCategoria = ?";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bind_param("i",$id_categoria);
+        $stmt->execute();
+        $resultado = $stmt->get_result(); 
+        $linha = $resultado->fetch_array();
+        return $linha['nomeCategoria'];
+}
 ?>

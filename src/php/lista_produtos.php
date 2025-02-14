@@ -3,7 +3,6 @@ require_once "conexao.php";
 require_once "funcoes.php";
 require_once "verificacao_categoria.php";
 require_once "verificacao_login.php";
-error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -35,13 +34,15 @@ error_reporting(0);
                     <li><a href="escolha_categoria.php">Produtos</a></li>
                     <li><a href="movimentacoes.php">Movimentações</a></li>
                     <li><a href="cadastro_usuarios.php">Cadastrar funcionários</a></li>
-                    <li><a href="#">Alterar login</a></li>
-                    <li><a href="#">Excluir conta</a></li>
+                    <li><a href="perfil.php">Meu perfil</a></li>
                 </ul>
             </nav>
         </div>
+        <h3 style="text-align:center;">Categoria: <?php echo exibir_categoria_selecionada($conexao,$_SESSION['categoria-selecionada']); ?></h3>
         <div class="area-exibicao2">
-            <?php listar_produtos_total($conexao,$_SESSION['categoria-selecionada']);?>
+            <?php
+             listar_produtos_total($conexao,$_SESSION['categoria-selecionada']);
+             ?>
         </div>
 
     </main>

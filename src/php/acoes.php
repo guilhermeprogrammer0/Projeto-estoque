@@ -29,10 +29,27 @@ if($_POST['cadastrar_produtos']){
     }
     unset($_SESSION['categoria_cadastro']);
 }
+if($_POST['editar_produtos']){
+    editar_produto($conexao,$_POST['id'],$_POST['nome'],$_POST['valor'],$_POST['imagem'],$_POST['idCategoria']);
+}
 if($_POST['cadastrar']){
     cadastrar_usuario($conexao,$_POST['nome'],$_POST['usuario'],$_POST['senha']);
+}
+if($_POST['editarUsuario']){
+    editar_usuario($conexao,$_POST['nome'],$_POST['usuario'],$_POST['senha'],$_SESSION['usuario_logado']);
 }
 if($_POST['login']){
     fazer_login($conexao,$_POST['usuario'],$_POST['senha']);
 }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(isset($_POST['btnExcluir'])){
+        excluir_produto($conexao,$_POST['id']);
+    }
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(isset($_POST['btnexcluirUsuario'])){
+        excluir_usuario($conexao,$_POST['idUsuario']);
+    }
+}
+
 ?>

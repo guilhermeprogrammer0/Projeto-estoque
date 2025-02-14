@@ -1,7 +1,6 @@
 <?php
-require_once "conexao.php";
 require_once "funcoes.php";
-require_once "verificacao_cadastro_categoria.php";
+require_once "conexao.php";
 require_once "verificacao_login.php";
 error_reporting(0);
 ?>
@@ -10,7 +9,7 @@ error_reporting(0);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de produtos</title>
+    <title>Meu perfil</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://kit.fontawesome.com/ae27920976.js" crossorigin="anonymous"></script>
@@ -27,11 +26,11 @@ error_reporting(0);
             </div>
         </div>
     </header>
-    <main class="menu-principal menu-principal-cadastro">
-        <div class="menu-lateral menu-lateral-cadastro">
+    <main class="menu-principal">
+        <div class="menu-lateral">
         <nav>
                 <ul class="menu">
-                    <li> <a href="escolha_categoria_cadastro.php">Cadastrar Produtos </a></li>
+                    <li> <a href="cadastro_produtos.php">Cadastrar Produtos </a></li>
                     <li><a href="escolha_categoria.php">Produtos</a></li>
                     <li><a href="movimentacoes.php">Movimentações</a></li>
                     <li><a href="cadastro_usuarios.php">Cadastrar funcionários</a></li>
@@ -39,17 +38,26 @@ error_reporting(0);
                 </ul>
             </nav>
         </div>
-        <div class="main-categoria main-categoria2">
-            <div class="cadastro-produto">
-            <form action="acoes.php" method="POST" enctype="multipart/form-data">
-                <?php exibir_escolha_categoria($conexao,$_SESSION['categoria_cadastro']);
-                ?>
-                <div>
-                    <input type="submit" class="botaoEnviar" value="Enviar" name="cadastrar_produtos"/>
-                </div>
-            </form>
-            </select>
-            </div>       
+        <div class="area-exibicao">
+            <div class="meu-perfil">
+            <div class="card text-center">
+  <div class="card-header">
+    Dados
+  </div>
+  <div class="card-body">
+    <h2 class="card-title"> Funcionário: <?php echo $_SESSION['nome_usuario_logado']; ?> </h2>
+    <a href="editar_usuario.php"><button type="button" class="botaoGeral btnEditar" name="btnEditar">Editar dados</button></a>
+    <form action="acoes.php" method="POST" onsubmit="return confirm('Deseja mesmo excluir sua conta?')">
+    <input type="hidden" name="idUsuario" value="<?php echo $_SESSION['usuario_logado'];?>">
+    <button type="submit" class="botaoGeral btnExcluirConta" name="btnexcluirUsuario">Excluir conta</button>
+    </form>
+    
+
+  </div>
+  <div class="card-footer text-muted">
+    Lembre - se de seguir as normas para alterar os seus dados
+  </div>
+</div>
             </div>
     </main>
     

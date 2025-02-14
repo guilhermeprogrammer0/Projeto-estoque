@@ -1,9 +1,7 @@
 <?php
 require_once "conexao.php";
 require_once "funcoes.php";
-require_once "verificacao_cadastro_categoria.php";
 require_once "verificacao_login.php";
-error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -40,17 +38,7 @@ error_reporting(0);
             </nav>
         </div>
         <div class="main-categoria main-categoria2">
-            <div class="cadastro-produto">
-            <form action="acoes.php" method="POST" enctype="multipart/form-data">
-                <?php exibir_escolha_categoria($conexao,$_SESSION['categoria_cadastro']);
-                ?>
-                <div>
-                    <input type="submit" class="botaoEnviar" value="Enviar" name="cadastrar_produtos"/>
-                </div>
-            </form>
-            </select>
-            </div>       
-            </div>
+            <?php exibir_dados_alteracao($conexao,$_POST['id']);?>
     </main>
     
 </body>

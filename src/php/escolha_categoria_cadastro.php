@@ -34,8 +34,7 @@ error_reporting(0);
                     <li><a href="escolha_categoria.php">Produtos</a></li>
                     <li><a href="movimentacoes.php">Movimentações</a></li>
                     <li><a href="cadastro_usuarios.php">Cadastrar funcionários</a></li>
-                    <li><a href="#">Alterar login</a></li>
-                    <li><a href="#">Excluir conta</a></li>
+                    <li><a href="perfil.php">Meu perfil</a></li>
                 </ul>
             </nav>
         </div>
