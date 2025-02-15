@@ -41,14 +41,8 @@ error_reporting(0);
         </div>
         <div class="main-categoria main-categoria2">
             <div class="cadastro-produto">
-            <form action="acoes.php" method="POST" enctype="multipart/form-data">
                 <?php exibir_escolha_categoria($conexao,$_SESSION['categoria_cadastro']);
                 ?>
-                <div>
-                    <input type="submit" class="botaoEnviar" value="Enviar" name="cadastrar_produtos"/>
-                </div>
-            </form>
-            </select>
             </div>       
             </div>
     </main>

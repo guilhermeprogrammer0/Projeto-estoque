@@ -179,9 +179,12 @@ header .avatarUser .btnSair a{
 
 }
 .cadastro-produto{
-    width:40%;
-    padding:1em;
+    width:50%;
+    padding:1.2em;
     background-color: white;
+    
+}
+.cadastro-produto table{
     margin-top:10px;
 }
 
@@ -210,7 +213,7 @@ header .avatarUser .btnSair a{
     height:220px;
     max-height: 250px;
     max-width:250px;
-    object-fit: cover
+    background-size: cover;
 }
 .img-produto-selecionado{
     width:250px;
@@ -220,6 +223,14 @@ header .avatarUser .btnSair a{
     position:absolute;
     top:1;
     right:0;
+    padding:0.1em;
+    cursor:pointer;
+    color:#E5191A;
+    font-size: 1.2em;
+    border:none;
+    background: none;
+}
+.btnExcluirCategoria{
     padding:0.1em;
     cursor:pointer;
     color:#E5191A;

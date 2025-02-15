@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14/02/2025 às 19:45
+-- Tempo de geração: 16/02/2025 às 00:27
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -58,6 +58,15 @@ CREATE TABLE `movimentacao_estoque` (
   `idProduto` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Despejando dados para a tabela `movimentacao_estoque`
+--
+
+INSERT INTO `movimentacao_estoque` (`idMovimentacao`, `tipo`, `qtd_movida`, `data`, `idProduto`) VALUES
+(1, 'entrada', 2, '2025-02-15 20:26:05', 1),
+(2, 'saida', 32, '2025-02-15 20:26:12', 1),
+(3, 'entrada', 30, '2025-02-15 20:26:23', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -70,8 +79,15 @@ CREATE TABLE `produtos` (
   `quantidade` int(11) NOT NULL,
   `valor` double NOT NULL,
   `imagem` varchar(100) NOT NULL,
-  `idCategoria` int(11) NOT NULL
+  `idCategoria` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `produtos`
+--
+
+INSERT INTO `produtos` (`id`, `nome`, `quantidade`, `valor`, `imagem`, `idCategoria`) VALUES
+(1, 'Notebook Acer', 30, 4000, '67b12259eadf0.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -124,25 +140,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `movimentacao_estoque`
 --
 ALTER TABLE `movimentacao_estoque`
-  MODIFY `idMovimentacao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMovimentacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para tabelas despejadas

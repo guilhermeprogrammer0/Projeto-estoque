@@ -42,8 +42,7 @@ error_reporting(0);
             <h1>O que você quer cadastrar?</h1>
             <div class="escolha-categoria">
                 <form action="acoes.php" method="POST">
-            <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="categoria_cadastro">
-                <option selected>Cadastrar</option>
+            <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="categoria_cadastro" required>
                 <option value="categoria">Categorias</option>
                 <option value="produtos">Produtos</option>
                 <div>

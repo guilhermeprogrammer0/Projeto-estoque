@@ -1,11 +1,17 @@
 <?php
 require_once "funcoes.php";
 require_once "conexao.php";
+error_reporting(0);
 if($_POST['categoria']){
     $_SESSION['categoria-selecionada'] = $_POST['idCategoria'];
     ?>
     <script>window.location.href = "lista_produtos.php"</script> 
     <?php
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if(isset($_POST['btnExcluirCategoria'])){
+    excluir_categoria($conexao,$_POST['idCategoria']);
+}
 }
 if($_POST['editar_Estoque']){
     gerenciar_estoque($conexao,$_POST['tipo'],$_POST['qtd_movida'],$_SESSION['produto_selecionado']);

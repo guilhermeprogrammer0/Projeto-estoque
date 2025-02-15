@@ -100,6 +100,34 @@ function cadastrar_categoria($conexao,$nomeCategoria){
     }
     $stmt_cadastro_categoria->close();
 }
+function excluir_categoria($conexao,$id_categoria){
+    $sql_desassociar = "UPDATE produtos set idCategoria = NULL WHERE idCategoria = ?";
+    $stmt_desassociar = $conexao->prepare($sql_desassociar);
+    $stmt_desassociar->bind_param("i",$id_categoria);
+    if($stmt_desassociar->execute()){
+    $sql_excluir = "DELETE FROM categoria WHERE idCategoria = ?";
+    $stmt_excluir = $conexao->prepare($sql_excluir);
+    $stmt_excluir->bind_param("i",$id_categoria);
+    if($stmt_excluir->execute()){
+        ?>
+        <script>
+        alert("Categoria excluída com sucesso!");
+        window.location.href = "cadastro_produtos.php";
+        </script>
+        <?php
+    }
+    else{
+        echo "ERRO ao excluir!";
+    }
+    $stmt_excluir->close();
+    }
+    else{
+        echo "Erro ao desassociar!";
+    }
+    $stmt_desassociar->close();
+
+}
+
 function listar_categoria($conexao){
     $sql = "SELECT * FROM categoria";
     $resultado = $conexao->query($sql);?>
@@ -143,7 +171,11 @@ function listar_produtos_total($conexao,$id_produto){
                 </form>
                 <div class="card-body">
                  <h5 class="card-title">Nome: <?php echo $linha['nome'];?></h5>
-                <p class="card-text">Quantidade atual: <?php echo $linha['quantidade'];?></p>
+                 <?php if($linha['quantidade'] == 0) { ?>
+                <p class="card-text" style="color:#E5191A;">Quantidade atual: <?php echo $linha['quantidade']; ?></p>
+                <?php } else { ?>
+                <p class="card-text">Quantidade atual: <?php echo $linha['quantidade']; ?></p>
+                <?php } ?>
                 <p class="card-text">Valor: R$<?php echo number_format($linha['valor'],2,',','.');?></p>
                 <form action="editar_estoque.php" method="POST">
                 <input type="hidden" value="<?php echo $linha['id'];?>" name="id">
@@ -227,14 +259,50 @@ function gerenciar_estoque($conexao,$tipo,$qtd_movida,$id_produto){
 function exibir_escolha_categoria($conexao,$tipo){
     if($tipo=='categoria'){
         ?>
+        <form action="acoes.php" method="POST" enctype="multipart/form-data">
         <div class="mb-3 cadastrar-categoria">
                 <label for="nomeCategoria" class="form-label categoria">Nome Categoria</label>
                 <input type="text" class="form-control" id="nomeCategoria" name="nomeCategoria" required>
+        </div>
+        <div>
+        <input type="submit" class="botaoEnviar" value="Enviar" name="cadastrar_produtos"/>
+        </div>
+    </form>
+        <div class="mb-3 cadastrar-categoria">
+        <?php
+    $sql = "SELECT * FROM categoria";
+    $resultado = $conexao->query($sql);?>
+        <table class="table table-striped">
+        <thead>
+    <tr>
+      <th scope="col">Nome</th>
+      <th scope="col">Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+  while($linha = $resultado->fetch_array())
+  {?>
+    <tr>
+        <td><?php echo $linha['nomeCategoria'];?></td>
+        <td>
+            <form action="acoes.php" method="POST" onsubmit="return confirm('Deseja mesmo excluir?')">
+                <input type="hidden" name="idCategoria" value="<?php echo $linha['idCategoria'];?>">
+            <button type="submit" class="fa-solid fa-x btnExcluirCategoria" name="btnExcluirCategoria"></button>
+  </form>
+    </td>
+    </tr>
+    <?php
+    }
+    ?>
+  </tbody>
+        </table>
         </div>
         <?php
     }
     else if($tipo=='produtos'){
         ?>
+        <form action="acoes.php" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="nome" name="nome" required>
@@ -255,6 +323,10 @@ function exibir_escolha_categoria($conexao,$tipo){
                 <label  class="form-label">Categoria</label>
                 <?php listar_categoria($conexao);?>
                 </div>
+                <div>
+                    <input type="submit" class="botaoEnviar" value="Enviar" name="cadastrar_produtos"/>
+                </div>
+    </form>
                 <?php
     }
 }
