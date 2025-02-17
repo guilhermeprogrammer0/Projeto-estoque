@@ -1,6 +1,7 @@
 <?php
 require_once "conexao.php";
 require_once "funcoes.php";
+require_once "verifica_logado.php";
 error_reporting(0);
 ?>
 <!DOCTYPE html>
