@@ -305,7 +305,6 @@ function cadastrar_usuario($conexao, $nome, $usuario, $senha)
             ?>
                 <script>
                     alert("Cadastro feito com sucesso!");
-                    window.location.href = 'login.php';
                 </script>
         <?php
             } else {

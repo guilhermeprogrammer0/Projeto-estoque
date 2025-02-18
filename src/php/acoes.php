@@ -38,6 +38,12 @@ if ($_POST['editar_produtos']) {
 }
 if ($_POST['cadastrar']) {
     cadastrar_usuario($conexao, $_POST['nome'], $_POST['usuario'], $_POST['senha']);
+    if(isset($_SESSION['usuario_logado'])){
+    header("location:escolha_categoria.php");
+    }
+    else{
+    header("location:login.php");
+    }
 }
 if ($_POST['editarUsuario']) {
     editar_usuario($conexao, $_POST['nome'], $_POST['usuario'], $_POST['senha'], $_SESSION['usuario_logado']);
