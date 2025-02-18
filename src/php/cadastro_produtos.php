@@ -20,32 +20,47 @@ error_reporting(0);
         <h1>Gestão de estoque</h1>
         <div class="avatarUser">
             <div>
-            <?php mostrar_nome($_SESSION['nome_usuario_logado']);?>
+                <?php mostrar_nome($_SESSION['nome_usuario_logado']); ?>
             </div>
-            <div class="btnSair">
+        </div>
+        <div class="btnSair">
             <a href="sair.php"><i class="fa-solid fa-right-from-bracket fa-2x"></i> </a>
-            </div>
         </div>
     </header>
     <main class="menu-principal menu-principal-cadastro">
         <div class="menu-lateral menu-lateral-cadastro">
-        <nav>
-                <ul class="menu">
-                    <li> <a href="escolha_categoria_cadastro.php">Cadastrar Produtos </a></li>
-                    <li><a href="escolha_categoria.php">Produtos</a></li>
-                    <li><a href="movimentacoes.php">Movimentações</a></li>
-                    <li><a href="cadastro_usuarios.php">Cadastrar funcionários</a></li>
-                    <li><a href="perfil.php">Meu perfil</a></li>
-                </ul>
-            </nav>
+            <?php include_once "nav.php"; ?>
         </div>
         <div class="main-categoria main-categoria2">
             <div class="cadastro-produto">
-                <?php exibir_escolha_categoria($conexao,$_SESSION['categoria_cadastro']);
-                ?>
-            </div>       
+                <form action="acoes.php" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required maxlength="100">
+                    </div>
+                    <div class="mb-3">
+                        <label for="Quantidade" class="form-label">Quantidade</label>
+                        <input type="text" class="form-control" id="Quantidade" name="quantidade" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="valor" class="form-label">Valor</label>
+                        <input type="text" class="form-control" id="valor" name="valor" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imagem" class="form-label">Imagem</label>
+                        <input type="file" class="form-control" id="imagem" name="imagem" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Categoria</label>
+                        <?php listar_categoria($conexao); ?>
+                    </div>
+                    <div class="mb-3">
+                        <a href="escolha_categoria_cadastro.php"><button type="button" class="botao botaoCancelar"> Cancelar </button></a>
+                        <input type="submit" class="botao botaoEnviar" value="Cadastrar" name="cadastrar_produtos">
+                    </div>
+                </form>
             </div>
+        </div>
     </main>
-    
 </body>
 </html>

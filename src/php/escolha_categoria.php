@@ -6,6 +6,7 @@ error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,43 +17,36 @@ error_reporting(0);
 </head>
 <body>
     <header>
-        <h1>Gestão de estoque</h1>
+        <div>
+            <h1>Gestão de estoque</h1>
+        </div>
         <div class="avatarUser">
             <div>
-            <?php mostrar_nome($_SESSION['nome_usuario_logado']);?>
-            </div>
-            <div class="btnSair">
-            <a href="sair.php"><i class="fa-solid fa-right-from-bracket fa-2x"></i> </a>
+                <?php mostrar_nome($_SESSION['nome_usuario_logado']); ?>
             </div>
         </div>
+        <div>
+            <div class="btnSair">
+                <a href="sair.php"><i class="fa-solid fa-right-from-bracket fa-2x"></i> </a>
+            </div>
     </header>
     <main class="menu-principal">
         <div class="menu-lateral">
-        <nav>
-                <ul class="menu">
-                    <li> <a href="cadastro_produtos.php">Cadastrar Produtos </a></li>
-                    <li><a href="escolha_categoria.php">Produtos</a></li>
-                    <li><a href="movimentacoes.php">Movimentações</a></li>
-                    <li><a href="cadastro_usuarios.php">Cadastrar funcionários</a></li>
-                    <li><a href="perfil.php">Meu perfil</a></li>
-                </ul>
-            </nav>
+            <?php include_once "nav.php"; ?>
         </div>
         <div class="area-exibicao main-categoria">
             <h1>Qual produto gostaria de ver?</h1>
             <div class="escolha-categoria">
                 <form action="acoes.php" method="POST">
-                <?php listar_categoria($conexao);?>
-                <div>
-                    <input type="submit" class="botaoEnviar" value="Enviar" name="categoria"/>
-                </div>
-</form>
+                    <?php listar_categoria($conexao); ?>
+                    <div>
+                        <input type="submit" class="botao botaoEnviar" value="Enviar" name="categoria" />
+                    </div>
+                </form>
 
-</select>
+                </select>
             </div>
         </div>
-
     </main>
-    
 </body>
 </html>

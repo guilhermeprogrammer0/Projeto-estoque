@@ -19,33 +19,22 @@ error_reporting(0);
         <h1>Gestão de estoque</h1>
         <div class="avatarUser">
             <div>
-            <?php mostrar_nome($_SESSION['nome_usuario_logado']);?>
+                <?php mostrar_nome($_SESSION['nome_usuario_logado']); ?>
             </div>
-            <div class="btnSair">
+        </div>
+        <div class="btnSair">
             <a href="sair.php"><i class="fa-solid fa-right-from-bracket fa-2x"></i> </a>
-            </div>
         </div>
     </header>
     <main class="menu-principal">
         <div class="menu-lateral">
-        <nav>
-                <ul class="menu">
-                    <li> <a href="cadastro_produtos.php">Cadastrar Produtos </a></li>
-                    <li><a href="escolha_categoria.php">Produtos</a></li>
-                    <li><a href="movimentacoes.php">Movimentações</a></li>
-                    <li><a href="cadastro_usuarios.php">Cadastrar funcionários</a></li>
-                    <li><a href="perfil.php">Meu perfil</a></li>
-                </ul>
-            </nav>
+            <?php include_once "nav.php"; ?>
         </div>
         <div class="area-exibicao">
             <div class="edicao-usuario">
-                <?php echo form_editar_usuario($conexao,$_SESSION['usuario_logado']) ;?>
-            
-
+                <?php echo form_editar_usuario($conexao, $_SESSION['usuario_logado']); ?>
             </div>
         </div>
     </main>
-    
 </body>
 </html>

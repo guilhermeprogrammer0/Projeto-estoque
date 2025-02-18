@@ -19,16 +19,16 @@ require_once "verificacao_login.php";
         <h1>Gestão de estoque</h1>
         <div class="avatarUser">
             <div>
-            <?php mostrar_nome($_SESSION['nome_usuario_logado']);?>
+                <?php mostrar_nome($_SESSION['nome_usuario_logado']); ?>
             </div>
-            <div class="btnSair">
+        </div>
+        <div class="btnSair">
             <a href="sair.php"><i class="fa-solid fa-right-from-bracket fa-2x"></i> </a>
-            </div>
         </div>
     </header>
     <main class="menu-horizontal-produtos">
         <div class="menu-cima">
-        <nav>
+            <nav>
                 <ul class="menu-horizontal">
                     <li> <a href="cadastro_produtos.php">Cadastrar Produtos </a></li>
                     <li><a href="escolha_categoria.php">Produtos</a></li>
@@ -38,13 +38,12 @@ require_once "verificacao_login.php";
                 </ul>
             </nav>
         </div>
-        <h3 style="text-align:center;">Categoria: <?php echo exibir_categoria_selecionada($conexao,$_SESSION['categoria-selecionada']); ?></h3>
-        <div class="area-exibicao2">
+        <h3 style="text-align:center;">Categoria: <?php echo exibir_categoria_selecionada($conexao, $_SESSION['categoria-selecionada']); ?></h3>
+        <div class="area-produtos">
             <?php
-             listar_produtos_total($conexao,$_SESSION['categoria-selecionada']);
-             ?>
+            listar_produtos_total($conexao, $_SESSION['categoria-selecionada']);
+            ?>
         </div>
-
     </main>
     <script src="../js/acoes.js"></script>
 </body>

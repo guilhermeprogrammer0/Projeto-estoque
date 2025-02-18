@@ -16,27 +16,30 @@ error_reporting(0);
 </head>
 <body class="fundo">
     <main class="formularioGeral">
-        <div><h1>Entrar</h1></div>
-        <form action="acoes.php" method="POST">
-        <div class="formulario">
-        <label for="usuario" class="form-label">Usuário</label>
-            <div class="mb-3">  
-              <input type="text" name="usuario" id="usuario" required/>
-            </div>
-            <label for="senha" class="form-label">Senha</label>
-            <div class="mb-3">
-                <input type="password" name="senha" id="senha" required/>
-            </div>
-            <div class="mb-3">
-            <input type="submit" class="botaoEnviar" value="Entrar" name="login"/>
-            </div>
-            <div class="mb-3 link-cadastro">
-            <p> Não tem conta? <a href="cadastro_usuarios.php"> <strong>Cadastre-se</strong> </a> </p>
-            </div>
+        <div>
+            <h1>Entrar</h1>
         </div>
+        <form action="acoes.php" method="POST">
+            <div class="formulario">
+                <label for="usuario" class="form-label">Usuário</label>
+                <div class="mb-3">
+                    <input type="text" name="usuario" id="usuario" required />
+                </div>
+                <label for="senha" class="form-label">Senha</label>
+                <div class="mb-3">
+                    <input type="password" name="senha" id="senha" required />
+                </div>
+                <div class="mb-3">
+                    <input type="submit" class="botao botaoEnviar" value="Entrar" name="login" />
+                </div>
+                <div class="mb-3 link-cadastro">
+                    <p> Não tem conta? <a href="cadastro_usuarios.php"> <strong>Cadastre-se</strong> </a> </p>
+                </div>
+            </div>
         </form>
     </main>
-    
-    
+
+
 </body>
+
 </html>
