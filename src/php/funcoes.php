@@ -201,12 +201,13 @@ function listar_produtos_total($conexao, $id_produto)
 
 function listar_produto($conexao, $id_produto)
 {
-    $sql = "SELECT nome, imagem,quantidade FROM produtos WHERE id = ?";
+    $sql = "SELECT id, nome, imagem,quantidade FROM produtos WHERE id = ?";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("i", $id_produto);
     $stmt->execute();
     $linha = $stmt->get_result()->fetch_array();
     $img = "../Upload/" . $linha['imagem'];
+    $_SESSION['id_retornado']  = $linha['id'];
     ?>
     <div class="card">
         <img src="<?php echo $img; ?>" class="card-img-top img-produto-selecionado">
@@ -236,7 +237,7 @@ function gerenciar_estoque($conexao, $tipo, $qtd_movida, $id_produto)
     ?>
         <script>
             alert("Estoque indisponível")
-            window.location.href = "lista_produtos.php";
+            window.location.href = "editar_estoque.php";
         </script>
     <?php
     }

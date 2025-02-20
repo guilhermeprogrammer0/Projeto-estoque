@@ -3,6 +3,7 @@ require_once "conexao.php";
 require_once "funcoes.php";
 require_once "verificacao_categoria.php";
 require_once "verificacao_login.php";
+unset($_SESSION['produto_selecionado']);
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">

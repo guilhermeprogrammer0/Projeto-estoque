@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 if ($_POST['editar_Estoque']) {
-        gerenciar_estoque($conexao, $_POST['tipo'], $_POST['qtd_movida'],$_SESSION['produto_selecionado']);
+        gerenciar_estoque($conexao, $_POST['tipo'], $_POST['qtd_movida'], $_SESSION['produto_selecionado']);
         unset($_SESSION['produto_selecionado']);
 }
 if ($_POST['escolha_cadastro']) {

@@ -34,8 +34,14 @@ error_reporting(0);
             <div class="edicao-estoque">
                 <?php
                 $_SESSION['produto_selecionado'] = $_POST['id'];
-                listar_produto($conexao, $_POST['id']);
-        
+                if(empty($_POST['id'])){
+                    listar_produto($conexao,$_SESSION['id_retornado']);
+                    $_SESSION['produto_selecionado'] = $_SESSION['id_retornado'];
+                }
+                else{
+                    listar_produto($conexao, $_POST['id']);
+                    $_SESSION['produto_selecionado'] = $_POST['id'];
+                }
                 ?>
                 
                 <form action="acoes.php" method="POST">
