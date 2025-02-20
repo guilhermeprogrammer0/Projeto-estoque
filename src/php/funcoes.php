@@ -161,8 +161,8 @@ function listar_produtos_total($conexao, $id_produto)
     $resultado = $stmt_categoria->get_result();
     if ($resultado->num_rows == 0) {
     ?>
-        <div class="alert alert-primary" role="alert">
-            Sem produtos
+        <div class="alert alert-warning " role="alert">
+            <h3> Sem produtos </h3>
         </div>
     <?php
     }

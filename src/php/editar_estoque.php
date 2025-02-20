@@ -42,6 +42,7 @@ error_reporting(0);
                     listar_produto($conexao, $_POST['id']);
                     $_SESSION['produto_selecionado'] = $_POST['id'];
                 }
+    
                 ?>
                 
                 <form action="acoes.php" method="POST">
