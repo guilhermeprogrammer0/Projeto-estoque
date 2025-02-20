@@ -58,6 +58,7 @@ header .btnSair a {
   width: 80%;
   height: 100%;
 }
+
 .menu,
 .menu-horizontal {
   background-color: #282b36;
@@ -75,6 +76,9 @@ header .btnSair a {
   padding: 0.8em;
   width: 100%;
   margin: 0;
+}
+.menu-horizontal{
+  height:90px !important;
 }
 .menu li:hover,
 .menu-horizontal li:hover {

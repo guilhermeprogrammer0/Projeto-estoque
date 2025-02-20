@@ -231,11 +231,12 @@ function gerenciar_estoque($conexao, $tipo, $qtd_movida, $id_produto)
         $sql_editar = "UPDATE produtos set quantidade = quantidade + ? WHERE id = ?";
     } else if ($tipo == 'saida' && $quantidade_atual >= $qtd_movida) {
         $sql_editar = "UPDATE produtos set quantidade = quantidade - ? WHERE id = ?";
+
     } else {
     ?>
         <script>
             alert("Estoque indisponível")
-            window.location.href = "editar_estoque.php?id=<?php echo $id_produto; ?>"
+            window.location.href = "lista_produtos.php";
         </script>
     <?php
     }

@@ -2,8 +2,6 @@
 require_once "funcoes.php";
 require_once "conexao.php";
 require_once "verificacao_login.php";
-$id_produto = $_POST['id'];
-$_SESSION['produto_selecionado'] = $id_produto;
 error_reporting(0);
 ?>
 <!DOCTYPE html>
@@ -34,7 +32,12 @@ error_reporting(0);
         </div>
         <div class="area-exibicao area-edicao-estoque">
             <div class="edicao-estoque">
-                <?php listar_produto($conexao, $id_produto); ?>
+                <?php
+                $_SESSION['produto_selecionado'] = $_POST['id'];
+                listar_produto($conexao, $_POST['id']);
+        
+                ?>
+                
                 <form action="acoes.php" method="POST">
                     <div class="form-edicao-estoque">
                         <select class="form-select mb-3 lista-edicao-estoque" aria-label="Large select example" name="tipo" required>
